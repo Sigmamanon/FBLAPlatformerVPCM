@@ -11,6 +11,7 @@ namespace SpriteKind {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
     game.gameOver(false)
 })
+setInterval(checkTextCollision, 25);
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (RickAstleyMunchkin.vy == 0) {
         RickAstleyMunchkin.vy = -200
@@ -762,22 +763,22 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `,img`
-        . . . . . . . . . . . . . . . . 
-        . . . . f f f f f f f . . . . . 
-        . . . f 5 5 5 5 5 5 5 f . . . . 
-        . . f 5 4 4 4 4 4 5 5 5 f . . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 5 5 5 5 5 5 5 5 5 5 f . . 
-        . . f 5 5 4 4 4 5 5 5 5 f . . . 
-        . . . f 5 5 5 5 5 5 5 f . . . . 
-        . . . . f f f f f f f . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . .
+            . . . . f f f f f f f . . . . .
+            . . . f 5 5 5 5 5 5 5 f . . . .
+            . . f 5 4 4 4 4 4 5 5 5 f . . .
+            . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+            . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+            . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+            . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+            . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+            . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+            . f 5 5 5 5 5 5 5 5 5 5 5 f . .
+            . . f 5 5 4 4 4 5 5 5 5 f . . .
+            . . . f 5 5 5 5 5 5 5 f . . . .
+            . . . . f f f f f f f . . . . .
+            . . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . . .
         `],
     100,
     true
@@ -791,3 +792,112 @@ game.onUpdate(function () {
         RickAstleyMunchkin.image.flipX()
     }
 })
+
+const collisionBoxWidthDefault: number = 5; // by default forms a 5x5 box around the text element collision.
+const collisionBoxHeightDefault: number = 5;
+class TextLocation {
+    readonly x: int8
+    message: string
+    readonly y: int8
+
+    _width: number = collisionBoxWidthDefault;
+    _height: number = collisionBoxHeightDefault;
+
+    accepted: boolean = false;
+
+    constructor(message: string, coordX: number, coordY: number) {
+        this.message = message;
+        this.x = coordX;
+        this.y = coordY;
+    }
+    get locX() {
+        return this.x;
+    }
+    get locY() {
+        return this.y;
+    }
+    get messageString() {
+        return this.message;
+    }
+
+    get width() {
+        return this._width;
+    }
+    get height() {
+        return this._height;
+    }
+    
+    set width(newWidth: number) { // high constraint to prevent them from overlapping.
+        if (newWidth <= 0 || newWidth > 200) {
+            return;
+        }
+        this._width = newWidth;
+    }
+    set height(newHeight: number) { // high constraint to prevent them from overlapping.
+        if (newHeight <= 0 || newHeight > 200) {
+            return;
+        }
+        this._height = newHeight;
+    }
+
+    checkCollision(ix: number, iy: number): boolean {
+        return (ix <= this.x + this._width) && (ix >= this.x - this._width) &&
+            (iy <= this.y + this._height) && (iy >= this.y - this._height)
+    }
+
+}
+function newtl(message: string, boundLeft: number, boundRight: number, boundBottom: number, boundTop: number): TextLocation {
+    // first these numbers need to be equalized
+    if (boundLeft > boundRight) {
+        let temp = boundRight;
+        boundRight = boundLeft;
+        boundLeft = temp;
+    }
+    if (boundTop > boundBottom) { // for some reason, jumping makes the y number go down.
+        let temp = boundBottom;
+        boundBottom = boundTop;
+        boundTop = temp;
+    }
+    let x = (boundLeft + boundRight)/2.0;
+    let y = (boundTop + boundBottom)/2.0;
+    let lt = new TextLocation(message, x, y);
+    lt.width = Math.abs(boundLeft - boundRight);
+    lt.height = Math.abs(boundTop - boundBottom);
+    return lt;
+}
+const list: TextLocation[] = [
+    newtl("Welcome to the Beginning", 2989, 3040, 2789, 2828),
+    new TextLocation("Welcome to the Beginning", 3000, 2998),
+    new TextLocation("Welcome to the Beginning", 3000, 2998),
+    new TextLocation("Welcome to the Beginning", 3000, 2998),
+    new TextLocation("Welcome to the Beginning", 3000, 2998),
+    new TextLocation("Welcome to the Beginning", 3000, 2998),
+];
+const textCollisionBurnTime = 5; // this number * 150 (or the interval time), is the amount of time the interval will no longer impact the game.
+let textCollisionTriggered: boolean = false;
+let textCollisionTriggerCounter: number = 0;
+function checkTextCollision() {    
+    console.logValue("x", RickAstleyMunchkin.x)
+    console.logValue("y", RickAstleyMunchkin.y)
+    if (textCollisionTriggered) { // prevents this function from checking again, which would lock the user through continued dialog boxes.
+        if (textCollisionTriggerCounter >= textCollisionBurnTime) {
+            textCollisionTriggered = false;
+            textCollisionTriggerCounter = 0;
+            return;
+        } else {
+            textCollisionTriggerCounter++;
+            return;
+        }
+        return; // just in case;
+    }
+    for (let i = 0; i<list.length; i++ ){
+        if (list[i].checkCollision(RickAstleyMunchkin.x,RickAstleyMunchkin.y)) {
+            textCollisionTriggered = true;
+            if (!list[i].accepted) {
+                list[i].accepted = true;
+                game.showLongText(list[i].message, DialogLayout.Top)
+            }
+        }
+    }
+    
+}
