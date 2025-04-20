@@ -1,5 +1,5 @@
 namespace SpriteKind {
-    export const Coin = SpriteKind.create()
+  export const Coin = SpriteKind.create();
 }
 /**
  * -- COYOTE TIME SETUP FOR RICKASTLEYMUNCHKIN --
@@ -8,21 +8,33 @@ namespace SpriteKind {
  * Counts down once you leave the ground
  */
 // --- COYOTE TIME SNIPPET ---
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
-    game.gameOver(false)
-})
+scene.onOverlapTile(
+  SpriteKind.Player,
+  assets.tile`myTile0`,
+  function (sprite, location) {
+    game.gameOver(false);
+  }
+);
 setInterval(checkTextCollision, 25);
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    while (true) {
+
+    }
+});
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (RickAstleyMunchkin.vy == 0) {
-        RickAstleyMunchkin.vy = -200
-    }
-})
+  if (RickAstleyMunchkin.vy == 0) {
+    RickAstleyMunchkin.vy = -200;
+  }
+});
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (RickAstleyMunchkin.vy == 0) {
-        RickAstleyMunchkin.vy = -200
-    }
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile16`, function (sprite2, location2) {
+  if (RickAstleyMunchkin.vy == 0) {
+    RickAstleyMunchkin.vy = -200;
+  }
+});
+scene.onOverlapTile(
+  SpriteKind.Player,
+  assets.tile`myTile16`,
+  function (sprite2, location2) {
     scene.setBackgroundImage(img`
         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -144,13 +156,21 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile16`, function (sprite2,
         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-        `)
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite3, otherSprite) {
-    info.changeScoreBy(1)
-    sprites.destroy(otherSprite)
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite2, location2) {
+        `);
+  }
+);
+sprites.onOverlap(
+  SpriteKind.Player,
+  SpriteKind.Coin,
+  function (sprite3, otherSprite) {
+    info.changeScoreBy(1);
+    sprites.destroy(otherSprite);
+  }
+);
+scene.onOverlapTile(
+  SpriteKind.Player,
+  assets.tile`myTile15`,
+  function (sprite2, location2) {
     scene.setBackgroundImage(img`
         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -312,9 +332,13 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite2,
         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-        `)
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite2, location2) {
+        `);
+  }
+);
+scene.onOverlapTile(
+  SpriteKind.Player,
+  assets.tile`myTile10`,
+  function (sprite2, location2) {
     scene.setBackgroundImage(img`
         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -436,13 +460,15 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite2,
         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-        `)
-})
-let COIN: Sprite = null
-let RickAstleyMunchkin: Sprite = null
+        `);
+  }
+);
+let COIN: Sprite = null;
+let RickAstleyMunchkin: Sprite = null;
 // Counts down once you leave the ground
-let coyoteCounter = 0
+let coyoteCounter = 0;
 let my_sprite: Sprite;
+
 scene.setBackgroundImage(img`
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -564,35 +590,39 @@ scene.setBackgroundImage(img`
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-    `)
-RickAstleyMunchkin = sprites.create(assets.image`myImage0`, SpriteKind.Player)
-controller.moveSprite(RickAstleyMunchkin, 100, 0)
-tiles.setCurrentTilemap(tilemap`level0`)
-tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(188, 175))
-RickAstleyMunchkin.ay = 500
-scene.cameraFollowSprite(RickAstleyMunchkin)
+    `);
+RickAstleyMunchkin = sprites.create(assets.image`myImage0`, SpriteKind.Player);
+controller.moveSprite(RickAstleyMunchkin, 100, 0);
+tiles.setCurrentTilemap(tilemap`level0`); // ADJUST TILE MAP ON BUTTON NEXT TO LINE NUMBER
+tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(0, 246));
+RickAstleyMunchkin.ay = 500;
+scene.cameraFollowSprite(RickAstleyMunchkin);
 for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
-    COIN = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . f f f f f f f . . . . . 
-        . . . f 5 5 5 5 5 5 5 f . . . . 
-        . . f 5 5 4 4 4 4 5 5 5 f . . . 
-        . f 5 5 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . f 5 4 5 5 5 5 5 5 5 5 5 f . . 
-        . . f 5 5 4 4 5 5 5 5 5 f . . . 
-        . . . f 5 5 5 5 5 5 5 f . . . . 
-        . . . . f f f f f f f . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Coin)
-    animation.runImageAnimation(
+  COIN = sprites.create(
+    img`
+        . . . . . . . . . . . . . . . .
+        . . . . . . . . . . . . . . . .
+        . . . . f f f f f f f . . . . .
+        . . . f 5 5 5 5 5 5 5 f . . . .
+        . . f 5 5 4 4 4 4 5 5 5 f . . .
+        . f 5 5 5 5 5 5 5 5 5 5 5 f . .
+        . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+        . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+        . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+        . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+        . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+        . f 5 4 5 5 5 5 5 5 5 5 5 f . .
+        . . f 5 5 4 4 5 5 5 5 5 f . . .
+        . . . f 5 5 5 5 5 5 5 f . . . .
+        . . . . f f f f f f f . . . . .
+        . . . . . . . . . . . . . . . .
+    `,
+    SpriteKind.Coin
+  );
+  animation.runImageAnimation(
     COIN,
-    [img`
+    [
+      img`
         . . . . . . . . . . . . . . . . 
         . . . . f f f f f f f . . . . . 
         . . . f 5 5 5 5 5 5 5 f . . . . 
@@ -609,7 +639,8 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
         . . . . f f f f f f f . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `,img`
+        `,
+      img`
         . . . . . . . . . . . . . . . . 
         . . . . f f f f f f . . . . . . 
         . . . f 5 5 5 5 5 5 f . . . . . 
@@ -626,7 +657,8 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
         . . . . f f f f f f . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `,img`
+        `,
+      img`
         . . . . . . . . . . . . . . . . 
         . . . . . . f f f . . . . . . . 
         . . . . . f 5 5 5 f . . . . . . 
@@ -643,7 +675,8 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
         . . . . . . f f f . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `,img`
+        `,
+      img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . f . . . . . . . . 
         . . . . . . f 5 f . . . . . . . 
@@ -660,7 +693,8 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
         . . . . . . . f . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `,img`
+        `,
+      img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . f . . . . . . . . 
         . . . . . . f 5 f . . . . . . . 
@@ -677,7 +711,8 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
         . . . . . . . f . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `,img`
+        `,
+      img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . f . . . . . . . . 
@@ -694,7 +729,8 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
         . . . . . . f 5 f . . . . . . . 
         . . . . . . . f . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `,img`
+        `,
+      img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . f . . . . . . . . 
         . . . . . . f 5 f . . . . . . . 
@@ -711,7 +747,8 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
         . . . . . . . f . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `,img`
+        `,
+      img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . f . . . . . . . . 
         . . . . . . f 5 f . . . . . . . 
@@ -728,7 +765,8 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
         . . . . . . . f . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `,img`
+        `,
+      img`
         . . . . . . . . . . . . . . . . 
         . . . . . . f f f . . . . . . . 
         . . . . . f 5 5 5 f . . . . . . 
@@ -745,7 +783,8 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
         . . . . . . f f f . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `,img`
+        `,
+      img`
         . . . . . . . . . . . . . . . . 
         . . . . f f f f f f . . . . . . 
         . . . f 5 5 5 5 5 5 f . . . . . 
@@ -762,7 +801,8 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
         . . . . f f f f f f . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `,img`
+        `,
+      img`
             . . . . . . . . . . . . . . . .
             . . . . f f f f f f f . . . . .
             . . . f 5 5 5 5 5 5 5 f . . . .
@@ -779,125 +819,155 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
             . . . . f f f f f f f . . . . .
             . . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . . .
-        `],
+        `,
+    ],
     100,
     true
-    )
-    tiles.placeOnTile(COIN, value)
-    tiles.setTileAt(value, assets.tile`transparency16`)
+  );
+  tiles.placeOnTile(COIN, value);
+  tiles.setTileAt(value, assets.tile`transparency16`);
 }
 game.onUpdate(function () {
-    RickAstleyMunchkin.setImage(assets.image`myImage0`)
-    if (RickAstleyMunchkin.vx < 0) {
-        RickAstleyMunchkin.image.flipX()
-    }
-})
+  RickAstleyMunchkin.setImage(assets.image`myImage0`);
+  if (RickAstleyMunchkin.vx < 0) {
+    RickAstleyMunchkin.image.flipX();
+  }
+});
 
 const collisionBoxWidthDefault: number = 5; // by default forms a 5x5 box around the text element collision.
 const collisionBoxHeightDefault: number = 5;
 class TextLocation {
-    readonly x: int8
-    message: string
-    readonly y: int8
+  readonly x: int8;
+  message: string;
+  readonly y: int8;
 
-    _width: number = collisionBoxWidthDefault;
-    _height: number = collisionBoxHeightDefault;
+  _width: number = collisionBoxWidthDefault;
+  _height: number = collisionBoxHeightDefault;
 
-    accepted: boolean = false;
+  accepted: boolean = false;
 
-    constructor(message: string, coordX: number, coordY: number) {
-        this.message = message;
-        this.x = coordX;
-        this.y = coordY;
-    }
-    get locX() {
-        return this.x;
-    }
-    get locY() {
-        return this.y;
-    }
-    get messageString() {
-        return this.message;
-    }
+  constructor(message: string, coordX: number, coordY: number) {
+    this.message = message;
+    this.x = coordX;
+    this.y = coordY;
+  }
+  get locX() {
+    return this.x;
+  }
+  get locY() {
+    return this.y;
+  }
+  get messageString() {
+    return this.message;
+  }
 
-    get width() {
-        return this._width;
-    }
-    get height() {
-        return this._height;
-    }
-    
-    set width(newWidth: number) { // high constraint to prevent them from overlapping.
-        if (newWidth <= 0 || newWidth > 200) {
-            return;
-        }
-        this._width = newWidth;
-    }
-    set height(newHeight: number) { // high constraint to prevent them from overlapping.
-        if (newHeight <= 0 || newHeight > 200) {
-            return;
-        }
-        this._height = newHeight;
-    }
+  get width() {
+    return this._width;
+  }
+  get height() {
+    return this._height;
+  }
 
-    checkCollision(ix: number, iy: number): boolean {
-        return (ix <= this.x + this._width) && (ix >= this.x - this._width) &&
-            (iy <= this.y + this._height) && (iy >= this.y - this._height)
+  set width(newWidth: number) {
+    // high constraint to prevent them from overlapping.
+    if (newWidth <= 0 || newWidth > 200) {
+      return;
     }
+    this._width = newWidth;
+  }
+  set height(newHeight: number) {
+    // high constraint to prevent them from overlapping.
+    if (newHeight <= 0 || newHeight > 200) {
+      return;
+    }
+    this._height = newHeight;
+  }
 
+  checkCollision(ix: number, iy: number): boolean {
+    return (
+      ix <= this.x + this._width &&
+      ix >= this.x - this._width &&
+      iy <= this.y + this._height &&
+      iy >= this.y - this._height
+    );
+  }
 }
-function newtl(message: string, boundLeft: number, boundRight: number, boundBottom: number, boundTop: number): TextLocation {
-    // first these numbers need to be equalized
-    if (boundLeft > boundRight) {
-        let temp = boundRight;
-        boundRight = boundLeft;
-        boundLeft = temp;
-    }
-    if (boundTop > boundBottom) { // for some reason, jumping makes the y number go down.
-        let temp = boundBottom;
-        boundBottom = boundTop;
-        boundTop = temp;
-    }
-    let x = (boundLeft + boundRight)/2.0;
-    let y = (boundTop + boundBottom)/2.0;
-    let lt = new TextLocation(message, x, y);
-    lt.width = Math.abs(boundLeft - boundRight);
-    lt.height = Math.abs(boundTop - boundBottom);
-    return lt;
+function newtl(
+  message: string,
+  boundLeft: number,
+  boundRight: number,
+  boundBottom: number,
+  boundTop: number
+): TextLocation {
+  // first these numbers need to be equalized
+  if (boundLeft > boundRight) {
+    let temp = boundRight;
+    boundRight = boundLeft;
+    boundLeft = temp;
+  }
+  if (boundTop > boundBottom) {
+    // for some reason, jumping makes the y number go down.
+    let temp = boundBottom;
+    boundBottom = boundTop;
+    boundTop = temp;
+  }
+  let x = (boundLeft + boundRight) / 2.0;
+  let y = (boundTop + boundBottom) / 2.0;
+  let lt = new TextLocation(message, x, y);
+  lt.width = Math.abs(boundLeft - boundRight);
+  lt.height = Math.abs(boundTop - boundBottom);
+  return lt;
+}
+function tltl(messgae: string, x: number, y: number) { // creates new text location using tile location arguments
+    x = 16 * x + 8;
+    y = 16 * y + 12;
+    return new TextLocation(messgae, x, y);
+}
+// creates bounded version oftextlocation, with tile location numbers
+function tltlb(message: string, lb: number, rb: number, bb: number, tb: number) {
+    lb = lb * 16 + 8;
+    rb = rb * 16 + 8;
+    tb = tb * 16 + 12;
+    bb = bb * 16 + 12;
+    return newtl(message, lb, rb, bb, tb);
 }
 const list: TextLocation[] = [
-    newtl("Welcome to the Beginning", 2989, 3040, 2789, 2828),
-    new TextLocation("Welcome to the Beginning", 3000, 2998),
-    new TextLocation("Welcome to the Beginning", 3000, 2998),
-    new TextLocation("Welcome to the Beginning", 3000, 2998),
-    new TextLocation("Welcome to the Beginning", 3000, 2998),
-    new TextLocation("Welcome to the Beginning", 3000, 2998),
+  newtl("Welcome to the Beginning", 2989, 3040, 2789, 2828),
+  tltl("Look beyond whats inside you, and find the peace.", 169, 238),
+  new TextLocation("Welcome to the Beginning", 3000, 2998),
+  new TextLocation("Welcome to the Beginning", 3000, 2998),
+  new TextLocation("Welcome to the Beginning", 3000, 2998),
+  new TextLocation("Welcome to the Beginning", 3000, 2998),
 ];
 const textCollisionBurnTime = 5; // this number * 150 (or the interval time), is the amount of time the interval will no longer impact the game.
 let textCollisionTriggered: boolean = false;
 let textCollisionTriggerCounter: number = 0;
-function checkTextCollision() {    
-    console.logValue("x", RickAstleyMunchkin.x)
-    console.logValue("y", RickAstleyMunchkin.y)
-    if (textCollisionTriggered) { // prevents this function from checking again, which would lock the user through continued dialog boxes.
-        if (textCollisionTriggerCounter >= textCollisionBurnTime) {
-            textCollisionTriggered = false;
-            textCollisionTriggerCounter = 0;
-            return;
-        } else {
-            textCollisionTriggerCounter++;
-            return;
-        }
-        return; // just in case;
+function checkTextCollision() {
+  console.logValue("x", RickAstleyMunchkin.x);
+  console.logValue("y", RickAstleyMunchkin.y);
+  if (textCollisionTriggered) {
+    // prevents this function from checking again, which would lock the user through continued dialog boxes.
+    if (textCollisionTriggerCounter >= textCollisionBurnTime) {
+      textCollisionTriggered = false;
+      textCollisionTriggerCounter = 0;
+      return;
+    } else {
+      textCollisionTriggerCounter++;
+      return;
     }
-    for (let i = 0; i<list.length; i++ ){
-        if (list[i].checkCollision(RickAstleyMunchkin.x,RickAstleyMunchkin.y)) {
-            textCollisionTriggered = true;
-            if (!list[i].accepted) {
-                list[i].accepted = true;
-                game.showLongText(list[i].message, DialogLayout.Top)
-            }
-        }
+    return; // just in case;
+  }
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].checkCollision(RickAstleyMunchkin.x, RickAstleyMunchkin.y)) {
+      textCollisionTriggered = true;
+      if (!list[i].accepted) {
+        list[i].accepted = true;
+        game.showLongText(list[i].message, DialogLayout.Top);
+      }
     }
-    
+  }
+}
+
+function SpriteLocToTileLoc(x: number, y: number): tiles.Location {
+    return tiles.getTileLocation((y-12)/16.0, (x-8)/16.0);
 }
