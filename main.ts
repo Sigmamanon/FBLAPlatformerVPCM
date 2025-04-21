@@ -17,7 +17,11 @@ scene.onOverlapTile(
 );
 setInterval(checkTextCollision, 25);
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    while (true) {}
+    if (!menuLocked2) {
+        while (true) {}
+    } else {
+        lockedMenuB();
+    }
 });
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (RickAstleyMunchkin.vy == 0) {
@@ -25,8 +29,12 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 });
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (RickAstleyMunchkin.vy == 0) {
-        RickAstleyMunchkin.vy = -200;
+    if (!menuLocked2) {
+        if (RickAstleyMunchkin.vy == 0) {
+            RickAstleyMunchkin.vy = -200;
+        }
+    } else {
+        lockedMenuA();
     }
 }); 
 scene.onOverlapTile(
@@ -844,7 +852,9 @@ class TextLocation {
 
     accepted: boolean = false;
 
-    callback: () => {} = null;
+    callback: () => void = null;
+
+    tag: string = "";
 
     constructor(message: string, coordX: number, coordY: number) {
         this.message = message;
@@ -860,7 +870,7 @@ class TextLocation {
     get messageString() {
         return this.message;
     }
-
+    
     get width() {
         return this._width;
     }
@@ -869,13 +879,58 @@ class TextLocation {
     }
 
     execute() {
+        console.log(this.callback);
+        console.log("hey");
         if (this.callback != null) {
             this.callback();
         }
+        switch (this.tag) {
+            case "earthExit":
+                this.lockEarthExit();
+                break;
+            default:
+                break;
+        }
     }
-    setCallbackFunc(callback: () => {}): TextLocation {
-        this.callback = callback;
+    setCallbackFunc(callback: () => void): TextLocation {
+        this.callback = null;
         return this;
+    }
+    setTag(newTag: string): TextLocation { // deprecated. shouldn't be used.
+        this.tag = newTag;
+        return this;
+    }
+
+    lockEarthExit() {
+        controller.moveSprite(RickAstleyMunchkin, -0, 0);
+        let optionChosen = false;
+        RickAstleyMunchkin.sayText("A: Saturn,       B: Mercury", 2500);
+        let textSayingInterval = setInterval(() => {
+            if (optionChosen) {
+                clearInterval(textSayingInterval);
+                controller.moveSprite(RickAstleyMunchkin, 100, 0);
+            } else {
+                RickAstleyMunchkin.sayText("A: Saturn        B: Mercury", 2500);
+            }
+        }, 2500);
+        controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
+            if (!optionChosen) {
+                tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(125, 244));
+                optionChosen = true;
+                clearInterval(textSayingInterval);
+                controller.moveSprite(RickAstleyMunchkin, 100, 0);
+
+            }
+        });
+        controller.B.onEvent(ControllerButtonEvent.Pressed, () => {
+            if (!optionChosen) {
+                tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(0, 0));
+                optionChosen = true;
+                clearInterval(textSayingInterval);
+                controller.moveSprite(RickAstleyMunchkin, 100, 0);
+            }
+        });
+        levelSelector();
     }
 
     set width(newWidth: number) {
@@ -964,9 +1019,13 @@ const list: TextLocation[] = [
     tltl("Come on, keep up!", 23, 246),
     tltl("Almost away from this place, lets move!", 37, 244),
     tltl("You have a message from your leader, do you accept? A/B", 65, 244),
-    tltl("You must decide between Saturn (A) or Mercury (B)", 125, 244),
-
+    tltl("You must decide between Saturn (A) or Mercury (B)", 125, 244).setTag("earthExit"),
+    new TextLocation("Welcome to the Beginning", 3000, 2998),
 ];
+
+class voidFunctionWrapper {
+    public callback: () => void;
+}
 const textCollisionBurnTime = 5; // this number * 150 (or the interval time), is the amount of time the interval will no longer impact the game.
 let textCollisionTriggered: boolean = false;
 let textCollisionTriggerCounter: number = 0;
@@ -1000,5 +1059,92 @@ function checkTextCollision() {
 function SpriteLocToTileLoc(x: number, y: number): tiles.Location {
     return tiles.getTileLocation((y - 12) / 16.0, (x - 8) / 16.0);
 }
-// needs to be implemented, i have no clue how that would be done tho.
-function moveToNewPlanet() {}
+let allowedLevels: string[] = [
+    "Earth"
+];
+function levelSelector(source: string = null) {
+    if(menuLocked) {
+        worldMenu.close();
+    }
+    let menuItems: miniMenu.MenuItem[] = [];
+    if (source!=null) {
+        menuItems.insertAt(0, miniMenu.createMenuItem("BACK"));
+    }
+    for (let i = 0; i< allowedLevels.length; i++ ) {
+        menuItems.insertAt(0, miniMenu.createMenuItem(allowedLevels[i]));
+    }
+    let menu = miniMenu.createMenuFromArray(menuItems);
+    menu.onButtonEvent(controller.A, (selection) => {
+        switch (selection) {
+            case "Saturn": 
+            case "Venus":
+        }
+    });
+}
+controller.menu.onEvent(ControllerButtonEvent.Pressed, triggerMenu);
+
+function unlock() {
+    controller.moveSprite(RickAstleyMunchkin, 100, 0);
+    controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+        if (RickAstleyMunchkin.vy == 0) {
+            RickAstleyMunchkin.vy = -200;
+        }
+    });
+    menuLocked2 = false;
+}
+function triggerMenu() {
+    console.log("hello");
+    if (!menuLocked) {
+        menuLocked = true;
+        worldMenu = miniMenu.createMenu(
+            miniMenu.createMenuItem("Levels"),
+            miniMenu.createMenuItem("escape"),
+        );
+
+        worldMenu.onButtonPressed(controller.A, function (selection, selectedIndex) {
+            console.log("hey");
+            switch (selection) {
+                case "levels":
+                    levelSelector();
+                    break;
+                case "escape":
+                    worldMenu.close();
+                    break;
+            }
+            worldMenu.close()
+            menuLocked = false;
+        })
+    } else {
+        menuLocked = false;
+    }
+}
+controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (!(menuIsVisible)) {
+        menuIsVisible = true
+        myMenu = miniMenu.createMenu(
+            miniMenu.createMenuItem("Party"),
+            miniMenu.createMenuItem("Equipment"),
+            miniMenu.createMenuItem("Items"),
+            miniMenu.createMenuItem("Skills"),
+            miniMenu.createMenuItem("Option")
+        )
+        myMenu.z = 999;
+        myMenu.onButtonPressed(controller.A, function (selection, selectedIndex) {
+            myMenu.close()
+            menuIsVisible = false
+        })
+    }
+})
+let location2394 = "125, 244";
+let myMenu: miniMenu.MenuSprite = null
+let menuIsVisible = false
+let menuLocked= false;
+let worldMenu: miniMenu.MenuSprite;
+
+let menuLocked2 = false;
+let lockedMenuA = () => {
+
+}
+let lockedMenuB = () => {
+
+}
