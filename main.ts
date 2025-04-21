@@ -592,7 +592,7 @@ scene.setBackgroundImage(img`
 RickAstleyMunchkin = sprites.create(assets.image`myImage0`, SpriteKind.Player);
 controller.moveSprite(RickAstleyMunchkin, 100, 0);
 tiles.setCurrentTilemap(tilemap`level0`); // ADJUST TILE MAP ON BUTTON NEXT TO LINE NUMBER
-tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(0, 246));
+tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(2, 246));
 RickAstleyMunchkin.ay = 500;
 scene.cameraFollowSprite(RickAstleyMunchkin);
 for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
@@ -958,10 +958,13 @@ function tltlb(
 }
 const list: TextLocation[] = [
     newtl("Welcome to the Beginning", 2989, 3040, 2789, 2828),
-    tltl("Look beyond whats inside you, and find the peace.", 169, 238),
-    new TextLocation("Welcome to the Beginning", 3000, 2998),
-    new TextLocation("Welcome to the Beginning", 3000, 2998),
-    new TextLocation("Welcome to the Beginning", 3000, 2998),
+    tltl("Move forward/back with the WASD keys.", 2, 246),
+    tltl("Answer questions with A and B.", 2, 246),
+    tltl("Welcome to the beginning.", 2, 246),
+    tltl("Come on, keep up!", 23, 246),
+    tltl("Almost away from this place, lets move!", 37, 244),
+    tltl("You have a message from your leader, do you accept? A/B", 65, 244),
+    tltl("You must decide between Saturn (A) or Mercury (B)", 125, 244),
     new TextLocation("Welcome to the Beginning", 3000, 2998),
 ];
 const textCollisionBurnTime = 5; // this number * 150 (or the interval time), is the amount of time the interval will no longer impact the game.
