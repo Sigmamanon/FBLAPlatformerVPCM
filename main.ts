@@ -15,6 +15,7 @@ scene.onOverlapTile(
         game.gameOver(false);
     }
 );
+
 setInterval(checkTextCollision, 25);
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!menuLocked2) {
@@ -880,7 +881,6 @@ class TextLocation {
 
     execute() {
         console.log(this.callback);
-        console.log("hey");
         if (this.callback != null) {
             this.callback();
         }
@@ -890,6 +890,9 @@ class TextLocation {
                 break;
             case "leaderMessage":
                 this.leaderMessage();
+                break;
+            case "Beginning":
+                this.beginningOfGame();
                 break;
             default:
                 break;
@@ -1028,6 +1031,42 @@ class TextLocation {
             }
         });
     }
+    beginningOfGame() {
+        game.showLongText("Welcome, what is the name you remember?", DialogLayout.Top);
+        let nameUV = game.askForString("What's the name you remember?", 15, true); // UV for unverified
+        if (nameUV == "") {
+            nameUV = "BOB";
+        }
+        nameUV = nameUV.toUpperCase();
+        nameUV = nameUV.trim();
+
+        if (!match(nameUV)) {
+            nameUV = "BOB"
+        }
+        character.name = nameUV;
+
+        // song
+        let num123= game.askForNumber("Do you like the song unwritten (1 - yes, 0 - no)",1);
+        if (num123 > 1 || num123 < 0) {
+            num123 = 1;
+            RickAstleyMunchkin.sayText("I must like unwritten and fumbled on my keyboard", 2000);
+        }
+        const likesOriginalSong = (num123 == 1);
+    }
+}
+function match(str: string): boolean {
+    if (str.length>1) {
+        return (isAlphaNumeric(str[0])) && match(str.slice(1));
+    }
+    if (str.length==1) {
+        return isAlphaNumeric(str[0]);
+    }
+    return true;
+    
+}
+function isAlphaNumeric(str: string) {
+    return str.charCodeAt(0) >= 48 && str.charCodeAt(0) <= 122;
+    // 48 is the number 0, 122 is the lowercase z
 }
 function newtl(
     message: string,
@@ -1087,7 +1126,7 @@ const list: TextLocation[] = [
 
     tltl("Move forward/back with the WASD keys.", 2, 246),
     tltl("Answer questions with A and B.", 2, 246),
-    tltl("Welcome to the beginning.", 2, 246),
+    tltl("Welcome to the beginning.", 2, 246).setTag("Beginning"),
     tltl("Earth. Is this place really suitable?", 23, 246),
     tltl("Find somewhere else to go, you can't stay here!", 37, 244),
     tltl("You have a message from your leader, do you accept? A/B", 65, 244).setTag("leaderMessage"),
@@ -1223,4 +1262,20 @@ let lockedMenuA = () => {
 }
 let lockedMenuB = () => {
 
+}
+let character = {
+    name: "BOB",
+    favoriteSong: "Unwritten - Natasha Bedingfield",
+    likesFavoriteSong: true,
+
+    achievements: [] as string[], // necesssary to make it claim its a string array
+    easterEggs: [] as any[],        // no more to say
+    
+    lastLocation: "Beginning",
+    choices: [] as any[],
+    inventory: [] as string[],           
+
+
+    serializedDataStore: "",
+    serializedDataStoreSet: false,
 }
