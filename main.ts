@@ -600,7 +600,7 @@ scene.setBackgroundImage(img`
 RickAstleyMunchkin = sprites.create(assets.image`myImage0`, SpriteKind.Player);
 controller.moveSprite(RickAstleyMunchkin, 100, 0);
 tiles.setCurrentTilemap(tilemap`level0`); // ADJUST TILE MAP ON BUTTON NEXT TO LINE NUMBER
-tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(188, 176));
+tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(93, 248));
 RickAstleyMunchkin.ay = 500;
 scene.cameraFollowSprite(RickAstleyMunchkin);
 for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
@@ -915,7 +915,7 @@ class TextLocation {
         }, 2500);
         controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
             if (!optionChosen) {
-                tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(125, 244));
+                tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(135, 247));
                 optionChosen = true;
                 clearInterval(textSayingInterval);
                 controller.moveSprite(RickAstleyMunchkin, 100, 0);
@@ -924,7 +924,7 @@ class TextLocation {
         });
         controller.B.onEvent(ControllerButtonEvent.Pressed, () => {
             if (!optionChosen) {
-                tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(0, 0));
+                tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(253, 237));
                 optionChosen = true;
                 clearInterval(textSayingInterval);
                 controller.moveSprite(RickAstleyMunchkin, 100, 0);
@@ -1016,9 +1016,10 @@ const list: TextLocation[] = [
     tltl("Move forward/back with the WASD keys.", 2, 246),
     tltl("Answer questions with A and B.", 2, 246),
     tltl("Welcome to the beginning.", 2, 246),
-    tltl("Come on, keep up!", 23, 246),
-    tltl("Almost away from this place, lets move!", 37, 244),
+    tltl("Earth. Is this place really suitable?", 23, 246),
+    tltl("Find somewhere else to go, you can't stay here!", 37, 244),
     tltl("You have a message from your leader, do you accept? A/B", 65, 244),
+    tltl("This place is going to crumble soon!", 93, 248),
     tltl("You must decide between Saturn (A) or Mercury (B)", 125, 244).setTag("earthExit"),
     new TextLocation("Welcome to the Beginning", 3000, 2998),
 ];
