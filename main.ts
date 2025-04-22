@@ -15,8 +15,8 @@ scene.onOverlapTile(
         game.gameOver(false);
     }
 );
-
-setInterval(checkTextCollision, 25);
+//Stop with B button
+setInterval(checkTextCollision, 25); 
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!menuLocked2) {
         game.gameOver(false);
@@ -24,6 +24,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         lockedMenuB();
     }
 });
+//Adds gravity and jump
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (RickAstleyMunchkin.vy == 0) {
         RickAstleyMunchkin.vy = -200;
@@ -601,7 +602,7 @@ scene.setBackgroundImage(img`
 RickAstleyMunchkin = sprites.create(assets.image`myImage0`, SpriteKind.Player);
 controller.moveSprite(RickAstleyMunchkin, 100, 0);
 tiles.setCurrentTilemap(tilemap`level0`); // ADJUST TILE MAP ON BUTTON NEXT TO LINE NUMBER
-tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(120, 244));
+tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(2, 246));
 RickAstleyMunchkin.ay = 500;
 scene.cameraFollowSprite(RickAstleyMunchkin);
 for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
@@ -625,7 +626,7 @@ for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
                 . . . . . . . . . . . . . . . .
         `,
         SpriteKind.Coin
-    );
+    ); // Runs the coin animation
     animation.runImageAnimation(
         COIN,
         [
@@ -915,12 +916,12 @@ class TextLocation {
             if (optionChosen) {
                 clearInterval(textSayingInterval);
                 controller.moveSprite(RickAstleyMunchkin, 100, 0);
-            } else {
+            } else { //Lets the user decide to go between Saturn or Mercury
                 RickAstleyMunchkin.sayText("A: Saturn        B: Mercury", 2500);
             }
         }, 2500);
         controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
-            if (!optionChosen) {
+            if (!optionChosen) { // Teleports to Saturn
                 tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(135, 247));
                 optionChosen = true;
                 clearInterval(textSayingInterval);
@@ -929,7 +930,7 @@ class TextLocation {
             }
         });
         controller.B.onEvent(ControllerButtonEvent.Pressed, () => {
-            if (!optionChosen) {
+            if (!optionChosen) { // Teleports to Mercury
                 tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(253, 237));
                 optionChosen = true;
                 clearInterval(textSayingInterval);
@@ -975,7 +976,7 @@ class TextLocation {
             }
         }, 2500);
         controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
-            if (!optionChosen) {
+            if (!optionChosen) { // Added the Riddle in which they can get part of their backstory.
                 game.showLongText("Since the birth of our species, the human race has stood like no other. Bound solely"
                     +" by our own technological innovation, our planet and solar system have been fruitful in our necesities. " 
                     + "However, time has run out and our planet can no longer sustain our activity. " 
