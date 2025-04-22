@@ -18,7 +18,7 @@ scene.onOverlapTile(
 setInterval(checkTextCollision, 25);
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!menuLocked2) {
-        while (true) {}
+        game.gameOver(false);
     } else {
         lockedMenuB();
     }
@@ -600,7 +600,7 @@ scene.setBackgroundImage(img`
 RickAstleyMunchkin = sprites.create(assets.image`myImage0`, SpriteKind.Player);
 controller.moveSprite(RickAstleyMunchkin, 100, 0);
 tiles.setCurrentTilemap(tilemap`level0`); // ADJUST TILE MAP ON BUTTON NEXT TO LINE NUMBER
-tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(93, 248));
+tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(2, 246));
 RickAstleyMunchkin.ay = 500;
 scene.cameraFollowSprite(RickAstleyMunchkin);
 for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
@@ -888,6 +888,9 @@ class TextLocation {
             case "earthExit":
                 this.lockEarthExit();
                 break;
+            case "leaderMessage":
+                this.leaderMessage();
+                break;
             default:
                 break;
         }
@@ -956,6 +959,75 @@ class TextLocation {
             iy >= this.y - this._height
         );
     }
+    leaderMessage() {
+        controller.moveSprite(RickAstleyMunchkin, -0, 0);
+        let optionChosen = false;
+        RickAstleyMunchkin.sayText("A: Accept,       B: Reject", 1500);
+        let textSayingInterval = setInterval(() => {
+            if (optionChosen) {
+                clearInterval(textSayingInterval);
+                controller.moveSprite(RickAstleyMunchkin, 100, 0);
+            } else {
+                RickAstleyMunchkin.sayText("A: Accept        B: Reject", 1500);
+            }
+        }, 2500);
+        controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
+            if (!optionChosen) {
+                game.showLongText("Since the birth of our species, the human race has stood like no other. Bound solely"
+                    +" by our own technological innovation, our planet and solar system have been fruitful in our necesities. " 
+                    + "However, time has run out and our planet can no longer sustain our activity. " 
+                    + "However, time has run out and our planet can no longer sustain our activity. "
+                    + "                                                                             "
+                    + "We must now pay the toll. And in this race, we will survive. We always have."
+                    + "[Command-819 RELAY -- CONTACT RECIEVE - 0:00:00 0-0-0. NO CONTACT]"
+                    + "                                                                  "
+                    + "[RE-ATTEMPTING CONTACT.... LAST KNOWN - TEN DAYS AGO]",
+
+
+                    DialogLayout.Top)
+                optionChosen = true;
+                clearInterval(textSayingInterval);
+                controller.moveSprite(RickAstleyMunchkin, 100, 0);
+
+            }
+        });
+        controller.B.onEvent(ControllerButtonEvent.Pressed, () => {
+            if (!optionChosen) {
+                optionChosen = true;
+                clearInterval(textSayingInterval);
+                controller.moveSprite(RickAstleyMunchkin, 100, 0);
+            }
+        });
+    }
+    riddle() {
+        controller.moveSprite(RickAstleyMunchkin, -0, 0);
+        let optionChosen = false;
+        RickAstleyMunchkin.sayText("A: Earth,       B: Kepler-442b", 1500);
+        let textSayingInterval = setInterval(() => {
+            if (optionChosen) {
+                clearInterval(textSayingInterval);
+                controller.moveSprite(RickAstleyMunchkin, 100, 0);
+            } else {
+                RickAstleyMunchkin.sayText("A: Saturn        B: Mercury", 2500);
+            }
+        }, 1500);
+        controller.A.onEvent(ControllerButtonEvent.Pressed, () => {
+            if (!optionChosen) {
+                optionChosen = true;
+                clearInterval(textSayingInterval);
+                controller.moveSprite(RickAstleyMunchkin, 100, 0);
+                game.showLongText("Make sure you've picked the right asnwer....", DialogLayout.Bottom)
+            }
+        });
+        controller.B.onEvent(ControllerButtonEvent.Pressed, () => {
+            if (!optionChosen) {
+                optionChosen = true;
+                clearInterval(textSayingInterval);
+                controller.moveSprite(RickAstleyMunchkin, 100, 0);
+                game.showLongText("Make sure you've picked the right asnwer....", DialogLayout.Bottom)
+            }
+        });
+    }
 }
 function newtl(
     message: string,
@@ -1018,10 +1090,11 @@ const list: TextLocation[] = [
     tltl("Welcome to the beginning.", 2, 246),
     tltl("Earth. Is this place really suitable?", 23, 246),
     tltl("Find somewhere else to go, you can't stay here!", 37, 244),
-    tltl("You have a message from your leader, do you accept? A/B", 65, 244),
+    tltl("You have a message from your leader, do you accept? A/B", 65, 244).setTag("leaderMessage"),
     tltl("This place is going to crumble soon!", 93, 248),
     tltl("You must decide between Saturn (A) or Mercury (B)", 125, 244).setTag("earthExit"),
-    new TextLocation("Welcome to the Beginning", 3000, 2998),
+    tltl("I dance with a distant sun, in just the right embrace I've spun. Too clse, and fire seals my fate, Too far, and ice becomes mhy state. Atmosphere thick, life may arise, But without it, all hope dies. What am I?", 66, 244)
+    // new TextLocation("Welcome to the Beginning", 3000, 2998),
 ];
 
 class voidFunctionWrapper {
