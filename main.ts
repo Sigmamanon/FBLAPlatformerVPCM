@@ -600,7 +600,7 @@ scene.setBackgroundImage(img`
 RickAstleyMunchkin = sprites.create(assets.image`myImage0`, SpriteKind.Player);
 controller.moveSprite(RickAstleyMunchkin, 100, 0);
 tiles.setCurrentTilemap(tilemap`level0`); // ADJUST TILE MAP ON BUTTON NEXT TO LINE NUMBER
-tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(2, 246));
+tiles.placeOnTile(RickAstleyMunchkin, tiles.getTileLocation(120, 244));
 RickAstleyMunchkin.ay = 500;
 scene.cameraFollowSprite(RickAstleyMunchkin);
 for (let value of tiles.getTilesByType(assets.tile`myTile3`)) {
@@ -1093,7 +1093,9 @@ const list: TextLocation[] = [
     tltl("You have a message from your leader, do you accept? A/B", 65, 244).setTag("leaderMessage"),
     tltl("This place is going to crumble soon!", 93, 248),
     tltl("You must decide between Saturn (A) or Mercury (B)", 125, 244).setTag("earthExit"),
-    tltl("I dance with a distant sun, in just the right embrace I've spun. Too clse, and fire seals my fate, Too far, and ice becomes mhy state. Atmosphere thick, life may arise, But without it, all hope dies. What am I?", 66, 244)
+    tltl("I see you have decided on Saturn, is this where you want to finally stay?", 135, 247),
+    tltl("You have escaped Earth, but you will not escape me! MWAHAHA!", 147, 246),
+    tltl("You have reached the Mercury, maybe this is a better spot.", 253, 237),
     // new TextLocation("Welcome to the Beginning", 3000, 2998),
 ];
 
